@@ -1,21 +1,34 @@
 
 <?php
+    include "config.php";
+?>
+
+
+
+
+<?php
 Class Database {
-    public $host = "DB_HOST";
-    public $user = "DB_USER";
-    public $pass = "DB_PASS";
-    public $dbname = "DB_NAME";
+    public $host = "localhost";
+    public $user = "root";
+    public $pass = "";
+    public $dbname = "ivy_moda";
 
 
     public $link;
     public $error;
 
-    public function __construct()
+    public function __construct(){
+        $this->connectDB();
+    }
+
+    public function connectDB()
     {
-        $this->link = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
+        $this->link = new  mysqli($this->host, $this->user, $this->pass, $this->dbname);
         if(!$this->link){
-            $this->error = "Connection fail".$this->link->connect_error;
-        return false;
+            die("Connection failed: ".mysqli_connect_error());
+        }
+        else{
+            // echo "Connected successfully";
         }
     }
 // Select or Read data
